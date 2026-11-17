@@ -165,7 +165,27 @@ Write an 8086 assembly language program to exchange the contents of two
 5.  Stop the program.
 
 ### Assembly Program
+.MODEL SMALL
+.STACK 100H
 
+.DATA
+    VALUE1 DW 1111H
+    VALUE2 DW 2222H
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AX, VALUE1      ; AX = 1111H
+    MOV BX, VALUE2      ; BX = 2222H
+    MOV VALUE1, BX      ; VALUE1 = 2222H
+    MOV VALUE2, AX      ; VALUE2 = 1111H
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
  
 
 ### Expected Result
@@ -191,6 +211,9 @@ Write an 8086 assembly language program to exchange the contents of two
 7.  Record the observed results and compare them with the expected
     results.
 ## Screenshot of the results 
+<img width="1600" height="831" alt="WhatsApp Image 2026-11-17 at 4 48 06 PM" src="https://github.com/user-attachments/assets/fdf5c315-bca6-40eb-9a13-8efed20b339f" />
+<img width="1600" height="836" alt="WhatsApp Image 2026-11-17 at 4 48 06 PM (1)" src="https://github.com/user-attachments/assets/e4dcad0b-6ce7-4444-ba16-a84124bee611" />
+<img width="1600" height="833" alt="WhatsApp Image 2026-11-17 at 4 48 06 PM (2)" src="https://github.com/user-attachments/assets/c1b31351-0801-4d3b-9e96-9b9d3b4ff7db" />
 
 
 
@@ -204,13 +227,20 @@ storage and the exchange of two 16-bit memory values.
 ## Viva Voce Questions
 
 1.  What is the function of the BIU in the 8086?
+BIU stands for Bus Interface Unit. It fetches instructions from memory and handles data transfer between the processor and memory.
 2.  What is the role of the EU?
+EU stands for Execution Unit. It decodes and executes instructions using the ALU and registers.
 3.  Why does the 8086 use a 6-byte instruction queue?
+The 8086 uses a 6-byte queue to store prefetched instructions so that the EU can execute instructions faster without waiting for memory every time.
 4.  What is the maximum physical memory address space of the 8086?
+The 8086 can access a maximum of 1 MB (2²⁰ bytes) of memory because it has a 20-bit address bus.
 5.  What is the difference between a register and a memory variable?
+      A register is a small, fast storage location inside the CPU, whereas a memory variable is stored in RAM and takes more time to access.
 6.  Does the `MOV` instruction change the source operand?
+     No. The MOV instruction copies data from the source to the destination without changing the source operand.
 7.  Why are registers used when exchanging two memory values?
+      Registers are used as temporary storage because the 8086 does not directly support memory-to-memory data transfer using the MOV instruction.
 8.  What is the purpose of the DS segment register?
-
+   DS stands for Data Segment. It stores the starting address of the data segment and is used to access data stored in memory.
  
 ` 
